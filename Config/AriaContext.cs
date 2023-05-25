@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using dotNetStudy.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace dotNetStudy.Config
 {
@@ -6,5 +7,6 @@ namespace dotNetStudy.Config
     {
         public AriaContext(DbContextOptions<AriaContext> options) : base(options) { }
 
+        public DbSet<User> Users { get; set; }
     }
 }
