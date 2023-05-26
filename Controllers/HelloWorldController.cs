@@ -1,4 +1,4 @@
-﻿using dotNetStudy.Config;
+﻿using dotNetStudy.Data;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 

@@ -12,3 +12,4 @@ namespace dotNetStudy.Models
         public string Email { get; set; }
     }
 }
+

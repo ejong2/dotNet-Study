@@ -1,8 +1,8 @@
-﻿using dotNetStudy.Config;
+﻿using dotNetStudy.Data;
+using dotNetStudy.Dtos;
 using dotNetStudy.Models;
-using Microsoft.AspNetCore.Http;
+using dotNetStudy.Services;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 
 namespace dotNetStudy.Controllers
 {
@@ -10,65 +10,91 @@ namespace dotNetStudy.Controllers
     [Route("api/v1/users")]
     public class UserController : ControllerBase
     {
-        private readonly AriaContext _context;
+        private readonly UserService _userService;
 
-        public UserController(AriaContext context)
+        public UserController(UserService userService)
         {
-            _context = context;
+            _userService = userService;
         }
 
         [HttpGet]
-        public ActionResult<List<User>> GetAllUsers()
+        public ActionResult<ApiResponse<List<User>>> GetAllUsers()
         {
-            return _context.Users.ToList();
-        }
-
-        [HttpPost]
-        public ActionResult<User> CreateUser(User user)
-        {
-            _context.Users.Add(user);
-            _context.SaveChanges();
-            return CreatedAtAction(nameof(GetUser), new { id = user.Id }, user);
+            var users = _userService.GetAllUsers();
+            return Ok(new ApiResponse<List<User>>
+            {
+                IsSuccessful = true,
+                Data = users
+            });
         }
 
         [HttpGet("{id}")]
-        public ActionResult<User> GetUser(int id)
+        public ActionResult<ApiResponse<User>> GetUser(int id)
         {
-            var user = _context.Users.Find(id);
+            var user = _userService.GetUser(id);
             if (user == null)
             {
-                return NotFound();
+                return NotFound(new ApiResponse<User>
+                {
+                    IsSuccessful = false,
+                    Message = "User not found"
+                });
             }
-            return user;
+            return Ok(new ApiResponse<User>
+            {
+                IsSuccessful = true,
+                Data = user
+            });
+        }
+
+        [HttpPost]
+        public ActionResult<ApiResponse<User>> CreateUser(User user)
+        {
+            var createdUser = _userService.CreateUser(user);
+            return CreatedAtAction(nameof(GetUser), new { id = createdUser.Id }, new ApiResponse<User>
+            {
+                IsSuccessful = true,
+                Data = createdUser
+            });
         }
 
         [HttpPut("{id}")]
-        public ActionResult UpdateUser(int id, User updatedUser)
+        public ActionResult<ApiResponse<User>> UpdateUser(int id, UserUpdateDto updatedUserDto)
         {
-            if (id != updatedUser.Id)
-            {
-                return BadRequest();
-            }
-
-            _context.Entry(updatedUser).State = EntityState.Modified;
-            _context.SaveChanges();
-
-            return NoContent();
-        }
-
-        [HttpDelete("{id}")]
-        public ActionResult DeleteUser(int id)
-        {
-            var user = _context.Users.Find(id);
+            var user = _userService.UpdateUser(id, updatedUserDto);
             if (user == null)
             {
-                return NotFound();
+                return BadRequest(new ApiResponse<User>
+                {
+                    IsSuccessful = false,
+                    Message = "Failed to update user"
+                });
             }
+            return Ok(new ApiResponse<User>
+            {
+                IsSuccessful = true,
+                Data = user
+            });
+        }
 
-            _context.Users.Remove(user);
-            _context.SaveChanges();
 
-            return NoContent();
+        [HttpDelete("{id}")]
+        public ActionResult<ApiResponse<User>> DeleteUser(int id)
+        {
+            var user = _userService.DeleteUser(id);
+            if (user == null)
+            {
+                return NotFound(new ApiResponse<User>
+                {
+                    IsSuccessful = false,
+                    Message = "User not found"
+                });
+            }
+            return Ok(new ApiResponse<User>
+            {
+                IsSuccessful = true,
+                Data = user
+            });
         }
     }
 }

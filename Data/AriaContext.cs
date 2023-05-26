@@ -1,7 +1,7 @@
 ﻿using dotNetStudy.Models;
 using Microsoft.EntityFrameworkCore;
 
-namespace dotNetStudy.Config
+namespace dotNetStudy.Data
 {
     public class AriaContext : DbContext
     {
