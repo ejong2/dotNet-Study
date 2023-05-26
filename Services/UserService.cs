@@ -1,6 +1,6 @@
 ﻿using dotNetStudy.Data;
+using dotNetStudy.Dtos;
 using dotNetStudy.Models;
-using Microsoft.EntityFrameworkCore;
 
 namespace dotNetStudy.Services
 {
@@ -13,26 +13,62 @@ namespace dotNetStudy.Services
             _context = context;
         }
 
-        public List<User> GetAllUsers()
+        public List<UserReadDto> GetAllUsers()
         {
-            return _context.Users.ToList();
+            var users = _context.Users.ToList();
+
+            return users.Select(user => new UserReadDto
+            {
+                Id = user.Id,
+                Name = user.Name,
+                Email = user.Email
+                // Include other properties as needed...
+            }).ToList();
         }
 
-        public User GetUser(int id)
+        public UserReadDto GetUser(int id)
         {
-            return _context.Users.Find(id);
+            var user = _context.Users.Find(id);
+
+            if (user == null)
+            {
+                return null;
+            }
+
+            return new UserReadDto
+            {
+                Id = user.Id,
+                Name = user.Name,
+                Email = user.Email
+                // Include other properties as needed...
+            };
         }
 
-        public User CreateUser(User user)
+        public UserReadDto CreateUser(UserCreateDto userCreateDto)
         {
-            _context.Users.Add(user);
+            var newUser = new User
+            {
+                Name = userCreateDto.Name,
+                Email = userCreateDto.Email
+                // Include other properties as needed...
+            };
+
+            _context.Users.Add(newUser);
             _context.SaveChanges();
-            return user;
+
+            return new UserReadDto
+            {
+                Id = newUser.Id,
+                Name = newUser.Name,
+                Email = newUser.Email
+                // Include other properties as needed...
+            };
         }
 
-        public User UpdateUser(int id, UserUpdateDto updatedUserDto)
+        public UserReadDto UpdateUser(int id, UserUpdateDto updatedUserDto)
         {
             var existingUser = _context.Users.Find(id);
+
             if (existingUser == null)
             {
                 return null;
@@ -44,12 +80,19 @@ namespace dotNetStudy.Services
 
             _context.SaveChanges();
 
-            return existingUser;
+            return new UserReadDto
+            {
+                Id = existingUser.Id,
+                Name = existingUser.Name,
+                Email = existingUser.Email
+                // Include other properties as needed...
+            };
         }
 
-        public User DeleteUser(int id)
+        public UserReadDto DeleteUser(int id)
         {
             var user = _context.Users.Find(id);
+
             if (user == null)
             {
                 return null;
@@ -58,7 +101,14 @@ namespace dotNetStudy.Services
             _context.Users.Remove(user);
             _context.SaveChanges();
 
-            return user;
+            return new UserReadDto
+            {
+                Id = user.Id,
+                Name = user.Name,
+                Email = user.Email
+                // Include other properties as needed...
+            };
         }
     }
 }
+

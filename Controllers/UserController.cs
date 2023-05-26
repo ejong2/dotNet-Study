@@ -1,6 +1,4 @@
-﻿using dotNetStudy.Data;
-using dotNetStudy.Dtos;
-using dotNetStudy.Models;
+﻿using dotNetStudy.Dtos;
 using dotNetStudy.Services;
 using Microsoft.AspNetCore.Mvc;
 
@@ -18,10 +16,10 @@ namespace dotNetStudy.Controllers
         }
 
         [HttpGet]
-        public ActionResult<ApiResponse<List<User>>> GetAllUsers()
+        public ActionResult<ApiResponse<List<UserReadDto>>> GetAllUsers()
         {
             var users = _userService.GetAllUsers();
-            return Ok(new ApiResponse<List<User>>
+            return Ok(new ApiResponse<List<UserReadDto>>
             {
                 IsSuccessful = true,
                 Data = users
@@ -29,18 +27,18 @@ namespace dotNetStudy.Controllers
         }
 
         [HttpGet("{id}")]
-        public ActionResult<ApiResponse<User>> GetUser(int id)
+        public ActionResult<ApiResponse<UserReadDto>> GetUser(int id)
         {
             var user = _userService.GetUser(id);
             if (user == null)
             {
-                return NotFound(new ApiResponse<User>
+                return NotFound(new ApiResponse<UserReadDto>
                 {
                     IsSuccessful = false,
                     Message = "User not found"
                 });
             }
-            return Ok(new ApiResponse<User>
+            return Ok(new ApiResponse<UserReadDto>
             {
                 IsSuccessful = true,
                 Data = user
@@ -48,10 +46,10 @@ namespace dotNetStudy.Controllers
         }
 
         [HttpPost]
-        public ActionResult<ApiResponse<User>> CreateUser(User user)
+        public ActionResult<ApiResponse<UserReadDto>> CreateUser(UserCreateDto userCreateDto)
         {
-            var createdUser = _userService.CreateUser(user);
-            return CreatedAtAction(nameof(GetUser), new { id = createdUser.Id }, new ApiResponse<User>
+            var createdUser = _userService.CreateUser(userCreateDto);
+            return CreatedAtAction(nameof(GetUser), new { id = createdUser.Id }, new ApiResponse<UserReadDto>
             {
                 IsSuccessful = true,
                 Data = createdUser
@@ -59,38 +57,37 @@ namespace dotNetStudy.Controllers
         }
 
         [HttpPut("{id}")]
-        public ActionResult<ApiResponse<User>> UpdateUser(int id, UserUpdateDto updatedUserDto)
+        public ActionResult<ApiResponse<UserReadDto>> UpdateUser(int id, UserUpdateDto updatedUserDto)
         {
             var user = _userService.UpdateUser(id, updatedUserDto);
             if (user == null)
             {
-                return BadRequest(new ApiResponse<User>
+                return BadRequest(new ApiResponse<UserReadDto>
                 {
                     IsSuccessful = false,
                     Message = "Failed to update user"
                 });
             }
-            return Ok(new ApiResponse<User>
+            return Ok(new ApiResponse<UserReadDto>
             {
                 IsSuccessful = true,
                 Data = user
             });
         }
 
-
         [HttpDelete("{id}")]
-        public ActionResult<ApiResponse<User>> DeleteUser(int id)
+        public ActionResult<ApiResponse<UserReadDto>> DeleteUser(int id)
         {
             var user = _userService.DeleteUser(id);
             if (user == null)
             {
-                return NotFound(new ApiResponse<User>
+                return NotFound(new ApiResponse<UserReadDto>
                 {
                     IsSuccessful = false,
                     Message = "User not found"
                 });
             }
-            return Ok(new ApiResponse<User>
+            return Ok(new ApiResponse<UserReadDto>
             {
                 IsSuccessful = true,
                 Data = user

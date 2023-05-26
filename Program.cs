@@ -1,7 +1,6 @@
 using dotNetStudy.Data;
 using dotNetStudy.Services; // UserService를 사용하기 위해 추가
 using Microsoft.EntityFrameworkCore;
-using Pomelo.EntityFrameworkCore.MySql;
 
 var builder = WebApplication.CreateBuilder(args);
 
