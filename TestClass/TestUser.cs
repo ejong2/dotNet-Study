@@ -1,9 +1,9 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace dotNetStudy.Models
+namespace dotNetStudy.TestClass
 {
-    public class User
+    public class TestUser
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]

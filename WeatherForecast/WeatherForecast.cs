@@ -1,4 +1,4 @@
-namespace dotNetStudy
+namespace dotNetStudy.WeatherForecast
 {
     public class WeatherForecast
     {

@@ -1,25 +1,23 @@
-﻿using dotNetStudy.Dtos;
-using dotNetStudy.Services;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 
-namespace dotNetStudy.Controllers
+namespace dotNetStudy.TestClass
 {
     [ApiController]
-    [Route("api/v1/users")]
-    public class UserController : ControllerBase
+    [Route("api/test/users")]
+    public class TestUserController : ControllerBase
     {
-        private readonly UserService _userService;
+        private readonly TestUserService _userService;
 
-        public UserController(UserService userService)
+        public TestUserController(TestUserService userService)
         {
             _userService = userService;
         }
 
         [HttpGet]
-        public ActionResult<ApiResponse<List<UserReadDto>>> GetAllUsers()
+        public ActionResult<TestApiResponse<List<TestUserReadDto>>> GetAllUsers()
         {
             var users = _userService.GetAllUsers();
-            return Ok(new ApiResponse<List<UserReadDto>>
+            return Ok(new TestApiResponse<List<TestUserReadDto>>
             {
                 IsSuccessful = true,
                 Data = users
@@ -27,18 +25,18 @@ namespace dotNetStudy.Controllers
         }
 
         [HttpGet("{id}")]
-        public ActionResult<ApiResponse<UserReadDto>> GetUser(int id)
+        public ActionResult<TestApiResponse<TestUserReadDto>> GetUser(int id)
         {
             var user = _userService.GetUser(id);
             if (user == null)
             {
-                return NotFound(new ApiResponse<UserReadDto>
+                return NotFound(new TestApiResponse<TestUserReadDto>
                 {
                     IsSuccessful = false,
                     Message = "User not found"
                 });
             }
-            return Ok(new ApiResponse<UserReadDto>
+            return Ok(new TestApiResponse<TestUserReadDto>
             {
                 IsSuccessful = true,
                 Data = user
@@ -46,10 +44,10 @@ namespace dotNetStudy.Controllers
         }
 
         [HttpPost]
-        public ActionResult<ApiResponse<UserReadDto>> CreateUser(UserCreateDto userCreateDto)
+        public ActionResult<TestApiResponse<TestUserReadDto>> CreateUser(TestUserCreateDto userCreateDto)
         {
             var createdUser = _userService.CreateUser(userCreateDto);
-            return CreatedAtAction(nameof(GetUser), new { id = createdUser.Id }, new ApiResponse<UserReadDto>
+            return CreatedAtAction(nameof(GetUser), new { id = createdUser.Id }, new TestApiResponse<TestUserReadDto>
             {
                 IsSuccessful = true,
                 Data = createdUser
@@ -57,18 +55,18 @@ namespace dotNetStudy.Controllers
         }
 
         [HttpPut("{id}")]
-        public ActionResult<ApiResponse<UserReadDto>> UpdateUser(int id, UserUpdateDto updatedUserDto)
+        public ActionResult<TestApiResponse<TestUserReadDto>> UpdateUser(int id, TestUserUpdateDto updatedUserDto)
         {
             var user = _userService.UpdateUser(id, updatedUserDto);
             if (user == null)
             {
-                return BadRequest(new ApiResponse<UserReadDto>
+                return BadRequest(new TestApiResponse<TestUserReadDto>
                 {
                     IsSuccessful = false,
                     Message = "Failed to update user"
                 });
             }
-            return Ok(new ApiResponse<UserReadDto>
+            return Ok(new TestApiResponse<TestUserReadDto>
             {
                 IsSuccessful = true,
                 Data = user
@@ -76,18 +74,18 @@ namespace dotNetStudy.Controllers
         }
 
         [HttpDelete("{id}")]
-        public ActionResult<ApiResponse<UserReadDto>> DeleteUser(int id)
+        public ActionResult<TestApiResponse<TestUserReadDto>> DeleteUser(int id)
         {
             var user = _userService.DeleteUser(id);
             if (user == null)
             {
-                return NotFound(new ApiResponse<UserReadDto>
+                return NotFound(new TestApiResponse<TestUserReadDto>
                 {
                     IsSuccessful = false,
                     Message = "User not found"
                 });
             }
-            return Ok(new ApiResponse<UserReadDto>
+            return Ok(new TestApiResponse<TestUserReadDto>
             {
                 IsSuccessful = true,
                 Data = user

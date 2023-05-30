@@ -1,4 +1,4 @@
-﻿using dotNetStudy.Models;
+﻿using dotNetStudy.TestClass;
 using Microsoft.EntityFrameworkCore;
 
 namespace dotNetStudy.Data
@@ -7,6 +7,6 @@ namespace dotNetStudy.Data
     {
         public AriaContext(DbContextOptions<AriaContext> options) : base(options) { }
 
-        public DbSet<User> Users { get; set; }
+        public DbSet<TestUser> Users { get; set; }
     }
 }

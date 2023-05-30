@@ -1,6 +1,6 @@
-﻿namespace dotNetStudy.Dtos
+﻿namespace dotNetStudy.TestClass
 {
-    public class UserReadDto
+    public class TestUserReadDto
     {
         public int Id { get; set; }
         public string Name { get; set; }
@@ -11,7 +11,7 @@
         // simply don't include them in this DTO.
     }
 
-    public class UserCreateDto
+    public class TestUserCreateDto
     {
         public string Name { get; set; }
         public string Email { get; set; }
@@ -21,7 +21,7 @@
         // as well as any properties that the client should be able to set when creating a new user.
     }
 
-    public class UserUpdateDto
+    public class TestUserUpdateDto
     {
         public string Name { get; set; }
         public string Email { get; set; }

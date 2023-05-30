@@ -1,5 +1,5 @@
 using dotNetStudy.Data;
-using dotNetStudy.Services; // UserService를 사용하기 위해 추가
+using dotNetStudy.TestClass;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -10,7 +10,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 // UserService를 서비스 컨테이너에 등록
-builder.Services.AddScoped<UserService>();
+builder.Services.AddScoped<TestUserService>();
 
 builder.Services.AddDbContext<AriaContext>(options =>
     options.UseMySql(builder.Configuration.GetConnectionString("DefaultConnection"), new MySqlServerVersion(new Version(8, 0, 11))));

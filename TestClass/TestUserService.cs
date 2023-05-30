@@ -1,23 +1,21 @@
 ﻿using dotNetStudy.Data;
-using dotNetStudy.Dtos;
-using dotNetStudy.Models;
 
-namespace dotNetStudy.Services
+namespace dotNetStudy.TestClass
 {
-    public class UserService
+    public class TestUserService
     {
         private readonly AriaContext _context;
 
-        public UserService(AriaContext context)
+        public TestUserService(AriaContext context)
         {
             _context = context;
         }
 
-        public List<UserReadDto> GetAllUsers()
+        public List<TestUserReadDto> GetAllUsers()
         {
             var users = _context.Users.ToList();
 
-            return users.Select(user => new UserReadDto
+            return users.Select(user => new TestUserReadDto
             {
                 Id = user.Id,
                 Name = user.Name,
@@ -26,7 +24,7 @@ namespace dotNetStudy.Services
             }).ToList();
         }
 
-        public UserReadDto GetUser(int id)
+        public TestUserReadDto GetUser(int id)
         {
             var user = _context.Users.Find(id);
 
@@ -35,7 +33,7 @@ namespace dotNetStudy.Services
                 return null;
             }
 
-            return new UserReadDto
+            return new TestUserReadDto
             {
                 Id = user.Id,
                 Name = user.Name,
@@ -44,9 +42,9 @@ namespace dotNetStudy.Services
             };
         }
 
-        public UserReadDto CreateUser(UserCreateDto userCreateDto)
+        public TestUserReadDto CreateUser(TestUserCreateDto userCreateDto)
         {
-            var newUser = new User
+            var newUser = new TestUser
             {
                 Name = userCreateDto.Name,
                 Email = userCreateDto.Email
@@ -56,7 +54,7 @@ namespace dotNetStudy.Services
             _context.Users.Add(newUser);
             _context.SaveChanges();
 
-            return new UserReadDto
+            return new TestUserReadDto
             {
                 Id = newUser.Id,
                 Name = newUser.Name,
@@ -65,7 +63,7 @@ namespace dotNetStudy.Services
             };
         }
 
-        public UserReadDto UpdateUser(int id, UserUpdateDto updatedUserDto)
+        public TestUserReadDto UpdateUser(int id, TestUserUpdateDto updatedUserDto)
         {
             var existingUser = _context.Users.Find(id);
 
@@ -80,7 +78,7 @@ namespace dotNetStudy.Services
 
             _context.SaveChanges();
 
-            return new UserReadDto
+            return new TestUserReadDto
             {
                 Id = existingUser.Id,
                 Name = existingUser.Name,
@@ -89,7 +87,7 @@ namespace dotNetStudy.Services
             };
         }
 
-        public UserReadDto DeleteUser(int id)
+        public TestUserReadDto DeleteUser(int id)
         {
             var user = _context.Users.Find(id);
 
@@ -101,7 +99,7 @@ namespace dotNetStudy.Services
             _context.Users.Remove(user);
             _context.SaveChanges();
 
-            return new UserReadDto
+            return new TestUserReadDto
             {
                 Id = user.Id,
                 Name = user.Name,

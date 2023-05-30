@@ -1,6 +1,6 @@
-﻿namespace dotNetStudy.Dtos
+﻿namespace dotNetStudy.TestClass
 {
-    public class ApiResponse<T>
+    public class TestApiResponse<T>
     {
         public bool IsSuccessful { get; set; }
         public string Message { get; set; }
