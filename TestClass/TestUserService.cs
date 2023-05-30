@@ -1,4 +1,5 @@
 ﻿using dotNetStudy.Data;
+using dotNetStudy.Models;
 
 namespace dotNetStudy.TestClass
 {

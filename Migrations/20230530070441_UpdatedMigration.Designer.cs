@@ -10,8 +10,8 @@ using dotNetStudy.Data;
 namespace dotNetStudy.Migrations
 {
     [DbContext(typeof(AriaContext))]
-    [Migration("20230530043653_AutoMigration")]
-    partial class AutoMigration
+    [Migration("20230530070441_UpdatedMigration")]
+    partial class UpdatedMigration
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -66,7 +66,7 @@ namespace dotNetStudy.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("캐릭터");
+                    b.ToTable("캐릭터", (string)null);
                 });
 
             modelBuilder.Entity("dotNetStudy.Models.User", b =>
@@ -88,7 +88,7 @@ namespace dotNetStudy.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("유저");
+                    b.ToTable("유저", (string)null);
                 });
 
             modelBuilder.Entity("dotNetStudy.TestClass.TestUser", b =>
@@ -99,15 +99,17 @@ namespace dotNetStudy.Migrations
 
                     b.Property<string>("Email")
                         .IsRequired()
-                        .HasColumnType("longtext");
+                        .HasColumnType("longtext")
+                        .HasColumnName("테스트 이메일");
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("longtext");
+                        .HasColumnType("longtext")
+                        .HasColumnName("테스트 네임");
 
                     b.HasKey("Id");
 
-                    b.ToTable("TestUsers");
+                    b.ToTable("테스트 테이블", (string)null);
                 });
 #pragma warning restore 612, 618
         }
