@@ -10,5 +10,6 @@ namespace dotNetStudy.Data
 
         public DbSet<TestUser> TestUsers { get; set; }
         public DbSet<User> Users { get; set; }
+        public DbSet<Avatar> Avatars { get; set; }
     }
 }

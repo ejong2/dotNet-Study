@@ -1,10 +1,6 @@
 using dotNetStudy.Data;
 using dotNetStudy.Services;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
-using System;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -13,6 +9,8 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddScoped<UserService>();
+builder.Services.AddScoped<AvatarService>();
+
 
 builder.Services.AddDbContext<AriaContext>(options =>
     options.UseMySql(builder.Configuration.GetConnectionString("DefaultConnection"), new MySqlServerVersion(new Version(8, 0, 11))));
@@ -25,6 +23,7 @@ using (var scope = app.Services.CreateScope())
     var services = scope.ServiceProvider;
     try
     {
+
         var context = services.GetRequiredService<AriaContext>();
         context.Database.Migrate(); // Apply migrations at runtime
     }
