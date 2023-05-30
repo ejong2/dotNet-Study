@@ -13,7 +13,7 @@ namespace dotNetStudy.TestClass
 
         public List<TestUserReadDto> GetAllUsers()
         {
-            var users = _context.Users.ToList();
+            var users = _context.TestUsers.ToList();
 
             return users.Select(user => new TestUserReadDto
             {
@@ -26,7 +26,7 @@ namespace dotNetStudy.TestClass
 
         public TestUserReadDto GetUser(int id)
         {
-            var user = _context.Users.Find(id);
+            var user = _context.TestUsers.Find(id);
 
             if (user == null)
             {
@@ -51,7 +51,7 @@ namespace dotNetStudy.TestClass
                 // Include other properties as needed...
             };
 
-            _context.Users.Add(newUser);
+            _context.TestUsers.Add(newUser);
             _context.SaveChanges();
 
             return new TestUserReadDto
@@ -65,7 +65,7 @@ namespace dotNetStudy.TestClass
 
         public TestUserReadDto UpdateUser(int id, TestUserUpdateDto updatedUserDto)
         {
-            var existingUser = _context.Users.Find(id);
+            var existingUser = _context.TestUsers.Find(id);
 
             if (existingUser == null)
             {
@@ -89,14 +89,14 @@ namespace dotNetStudy.TestClass
 
         public TestUserReadDto DeleteUser(int id)
         {
-            var user = _context.Users.Find(id);
+            var user = _context.TestUsers.Find(id);
 
             if (user == null)
             {
                 return null;
             }
 
-            _context.Users.Remove(user);
+            _context.TestUsers.Remove(user);
             _context.SaveChanges();
 
             return new TestUserReadDto

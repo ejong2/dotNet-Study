@@ -10,7 +10,6 @@
     <Compile Remove="WeatherForecast\**" />
     <Content Remove="WeatherForecast\**" />
     <EmbeddedResource Remove="WeatherForecast\**" />
-    <None Remove="WeatherForecast\**" />
   </ItemGroup>
 
   <ItemGroup>
@@ -28,10 +27,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Controllers\" />
-    <Folder Include="Dtos\" />
-    <Folder Include="Models\" />
-    <Folder Include="Services\" />
     <Folder Include="Views\" />
   </ItemGroup>
 

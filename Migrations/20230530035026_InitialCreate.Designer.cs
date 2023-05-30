@@ -10,7 +10,7 @@ using dotNetStudy.Data;
 namespace dotNetStudy.Migrations
 {
     [DbContext(typeof(AriaContext))]
-    [Migration("20230525042538_InitialCreate")]
+    [Migration("20230530035026_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -27,6 +27,25 @@ namespace dotNetStudy.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
+                    b.Property<string>("loginId")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("password")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Users");
+                });
+
+            modelBuilder.Entity("dotNetStudy.TestClass.TestUser", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
                     b.Property<string>("Email")
                         .IsRequired()
                         .HasColumnType("longtext");
@@ -37,7 +56,7 @@ namespace dotNetStudy.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Users");
+                    b.ToTable("TestUsers");
                 });
 #pragma warning restore 612, 618
         }
