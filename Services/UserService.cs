@@ -9,7 +9,7 @@ namespace dotNetStudy.Services
         private readonly AriaContext _context;
 
         public UserService(AriaContext context)
-        {
+        {   
             _context = context;
         }
 

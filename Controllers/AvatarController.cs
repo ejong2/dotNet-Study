@@ -5,7 +5,7 @@ using static dotNetStudy.Dtos.AvatarDtos;
 namespace dotNetStudy.Controllers
 {
     [ApiController]
-    [Route("avatars")]
+    [Route("api/v1/avatar/")]
     public class AvatarController : ControllerBase
     {
         private readonly AvatarService _avatarService;
